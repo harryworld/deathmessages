@@ -3,16 +3,13 @@ class MessagesController < ApplicationController
 
   def index
     @messages = Message.all
-    respond_with(@messages)
   end
 
   def show
-    respond_with(@message)
   end
 
   def new
     @message = Message.new
-    respond_with(@message)
   end
 
   def edit
@@ -21,17 +18,14 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @message.save
-    respond_with(@message)
   end
 
   def update
     @message.update(message_params)
-    respond_with(@message)
   end
 
   def destroy
     @message.destroy
-    respond_with(@message)
   end
 
   private
