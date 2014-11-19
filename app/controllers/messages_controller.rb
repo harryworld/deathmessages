@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
 
   def index
     @messages = Message.all
-    @user = User.all
   end
 
   def show

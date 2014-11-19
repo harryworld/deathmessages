@@ -16,8 +16,23 @@ m2 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jp
 m3 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
 m4 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
 m5 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m6 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m7 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m8 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m9 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
+m6 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
+m7 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
+m8 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
+m9 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
+m0 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
 
+m1.recipients << u2
+m2.recipients << u3
+m3.recipients << u4
+m4.recipients << u2
+m4.recipients << u3
+m5.recipients << u3
+m5.recipients << u4
+m6.recipients << u1
+m7.recipients << u3
+m8.recipients << u4
+m9.recipients << u1
+m9.recipients << u3
+m0.recipients << u3
+m0.recipients << u4

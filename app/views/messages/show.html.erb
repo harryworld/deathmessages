@@ -1,6 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>To:</strong>
+  <% @message.recipients.each do  |recipient| %>
+    <%= recipient.firstname + ' ' + recipient.lastname %>
+  <% end %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @message.user.firstname + ' ' + @message.user.lastname%>
+</p>
+
+<p>
+  <strong>Send date:</strong>
+  <%= @message.send_date %>
+</p>
+
+<p>
   <strong>Title:</strong>
   <%= @message.title %>
 </p>
@@ -15,10 +32,5 @@
   <%= @message.photo %>
 </p>
 
-<p>
-  <strong>Send date:</strong>
-  <%= @message.send_date %>
-</p>
-
 <%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+<%= link_to 'Back', root_path %>
