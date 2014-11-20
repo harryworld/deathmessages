@@ -15,17 +15,23 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
       .error (data) ->
         # console.log data
 
+  $scope.getName = (m) ->
+    if m.firstname != null
+      m.firstname + " " + m.lastname
+    else
+      m.email
+
   $scope.composeMessage = ->
     jsonObj = {
-      recipient: $scope.recipient,
+      recipient_email_list: $scope.recipient_email_list,
       title: $scope.title,
       content: $scope.content
     }
     jsonObj[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content')
-    console.log jsonObj
+    # console.log jsonObj
     $http.post('/messages.json', jsonObj)
       .success (data) ->
-        console.log data
+        # console.log data
         $scope.loadMessages()
       .error (data) ->
         console.log data

@@ -17,7 +17,7 @@
   <form accept-charset="UTF-8" action="/messages" class="new_message" id="new_message" method="post">
     <div class="field">
       <label for="message_recipient">To</label><br>
-      <input id="message_recipient" name="message[title]" type="text" ng-model="recipient"/>
+      <input id="message_recipient" name="message[title]" type="text" ng-model="recipient_email_list"/>
     </div>
     <div class="field">
       <label for="message_title">Title</label><br>
@@ -28,14 +28,13 @@
       <textarea id="message_content" name="message[content]" ng-model="content"/></textarea>
     </div>
     <div class="btn btn-success" ng-click="composeMessage()">Submit</div>
-    <!-- <div class="actions">
-      <input name="commit" type="submit" value="Create Message" />
-    </div> -->
   </form>
 
-  To: <span ng-bind="recipient"></span><br>
+  To: <span ng-bind="recipient_email_list"></span><br>
   Title: <span ng-bind="title"></span><br>
   Content: <span ng-bind="content"></span><br>
+
+  <input type="text" placeholder="Start typing to filter.." class="searchBox" ng-model="searchText" />
 
   <h1>Inbox</h1>
 
@@ -47,8 +46,8 @@
       <div class="col-md-2"> DATE </div>
     </div>
 
-    <div class="row" ng-repeat="message in received_messages">
-      <div class="col-md-2"> {{ message.sender_firstname + " " + message.sender_lastname }}</div>
+    <div class="row" ng-repeat="message in received_messages | filter: searchText">
+      <div class="col-md-2"> {{ getName(message) }}</div>
       <div class="col-md-2"> {{ message.title }} </div>
       <div class="col-md-2"> {{ message.content }} </div>
       <div class="col-md-2"> {{ message.created_at }} </div>
@@ -66,8 +65,8 @@
       <div class="col-md-2"> DATE </div>
     </div>
 
-    <div class="row" ng-repeat="message in sent_messages">
-      <div class="col-md-2"><span ng-repeat="recipient in message.recipients"> {{ recipient.firstname + " " + recipient.lastname }} </span></div>
+    <div class="row" ng-repeat="message in sent_messages | filter: searchText">
+      <div class="col-md-2"><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span></div>
       <div class="col-md-2"> {{ message.title }} </div>
       <div class="col-md-2"> {{ message.content }} </div>
       <div class="col-md-2"> {{ message.created_at }} </div>

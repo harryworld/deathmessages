@@ -1,10 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
-  def submit
-    data = params[:data]
-  end
-
   def index
     if user_signed_in?
       @received_messages = current_user.received_messages.order("created_at DESC")
@@ -25,11 +21,36 @@ class MessagesController < ApplicationController
   end
 
   def create
-    recipient = params[:recipient]
-
+    # get params from json
+    recipient_email_list = params[:recipient_email_list]
     title = params[:title]
     content = params[:content]
+
+    #create new message
     @message = Message.new(title:title, content:content, user_id:current_user.id)
+
+    # parse recipient email list into email array
+    recipients = recipient_email_list.split(/,\s*/)
+
+    recipients.each do |recipient|
+      user = User.find_by_email(recipient)
+
+      # check to see if existing user
+      if user.nil?
+
+        #generate random password
+        generated_password = Devise.friendly_token.first(8)
+        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # THIS NEEDS TO BE SENT TO USER THRU EMAIL
+
+        #create user with this email
+        user = User.create(email:recipient, password:generated_password, password_confirmation:generated_password)
+      end
+
+      # insert user into recipients
+      @message.recipients << user
+    end
+
     respond_to do |format|
       if @message.save
         # format.html { redirect_to @message, notice: 'Lunch was successfully created.' }
