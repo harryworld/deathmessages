@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 
@@ -72,3 +71,4 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
+gem 'angularjs-rails', '~> 1.3'

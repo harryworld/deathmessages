@@ -1,8 +1,17 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
+  def submit
+    data = params[:data]
+  end
+
   def index
-    @messages = Message.all
+    if user_signed_in?
+      @received_messages = current_user.received_messages
+      @sent_messages = Message.all.where(user_id:current_user.id)
+    else
+      redirect_to messages_path
+    end
   end
 
   def show
@@ -16,7 +25,11 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(message_params)
+    recipient = params[:recipient]
+    title = params[:title]
+    content = params[:content]
+    binding.pry
+    @message = Message.new(title:title, content:content, user_id:current_user.id)
     @message.save
   end
 
@@ -34,6 +47,6 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-      params.require(:message).permit(:title, :content, :photo, :send_date)
+      params.require(:message).permit(:title, :content)
     end
 end

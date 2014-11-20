@@ -8,71 +8,71 @@
   <%= link_to "Sign up", new_user_registration_path  %> |
   <%= link_to "Login", new_user_session_path  %>
 <% end %>
-<br><br>
-<%= link_to 'New Message', new_message_path %>
 
-<h1>Inbox</h1>
+<div ng-controller="MessageBoxCtrl">
 
-<table>
-  <thead>
-    <tr>
-      <th>From</th>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Photo</th>
-      <th>Send date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @received_messages.each do |received_message| %>
-      <tr>
-        <td><%= received_message.user.firstname + ' ' + received_message.user.lastname %></td>
-        <td><%= received_message.title %></td>
-        <td><%= received_message.content %></td>
-        <td><%= received_message.photo %></td>
-        <td><%= received_message.send_date %></td>
-        <td><%= link_to 'Show', received_message %></td>
-        <td><%= link_to 'Edit', edit_message_path(received_message) %></td>
-        <td><%= link_to 'Destroy', received_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <h1>New message</h1>
 
-<br>
+  <form accept-charset="UTF-8" action="/messages" class="new_message" id="new_message" method="post">
+    <div class="field">
+      <label for="message_recipient">To</label><br>
+      <input id="message_recipient" name="message[title]" type="text" ng-model="recipient"/>
+    </div>
+    <div class="field">
+      <label for="message_title">Title</label><br>
+      <input id="message_title" name="message[title]" type="text" ng-model="title"/>
+    </div>
+    <div class="field">
+      <label for="message_content">Content</label><br>
+      <textarea id="message_content" name="message[content]" ng-model="content"/></textarea>
+    </div>
+    <div class="btn btn-success" ng-click="composeMessage()">Submit</div>
+    <!-- <div class="actions">
+      <input name="commit" type="submit" value="Create Message" />
+    </div> -->
+  </form>
 
-<h1>Sent Messages</h1>
+  To: <span ng-bind="recipient"></span><br>
+  Title: <span ng-bind="title"></span><br>
+  Content: <span ng-bind="content"></span><br>
 
-<table>
-  <thead>
-    <tr>
-      <th>To</th>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Photo</th>
-      <th>Send date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <h1>Inbox</h1>
 
-  <tbody>
-    <% @sent_messages.each do |sent_message| %>
-      <tr>
-        <td>
-          <% sent_message.recipients.each do  |recipient| %>
-            <%= recipient.firstname + ' ' + recipient.lastname %>
-          <% end %>
-        </td>
-        <td><%= sent_message.title %></td>
-        <td><%= sent_message.content %></td>
-        <td><%= sent_message.photo %></td>
-        <td><%= sent_message.send_date %></td>
-        <td><%= link_to 'Show', sent_message %></td>
-        <td><%= link_to 'Edit', edit_message_path(sent_message) %></td>
-        <td><%= link_to 'Destroy', sent_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div>
+    <div class="row header">
+      <div class="col-md-2"> FROM </div>
+      <div class="col-md-2"> TITLE </div>
+      <div class="col-md-2"> CONTENT </div>
+      <div class="col-md-2"> DATE </div>
+    </div>
+
+    <div class="row" ng-repeat="message in received_messages">
+      <div class="col-md-2"> {{ message.sender_firstname + " " + message.sender_lastname }}</div>
+      <div class="col-md-2"> {{ message.title }} </div>
+      <div class="col-md-2"> {{ message.content }} </div>
+      <div class="col-md-2"> {{ message.created_at }} </div>
+    </div>
+
+  </div>
+
+  <h1>Sent Message</h1>
+
+  <div>
+    <div class="row header">
+      <div class="col-md-2"> TO </div>
+      <div class="col-md-2"> TITLE </div>
+      <div class="col-md-2"> CONTENT </div>
+      <div class="col-md-2"> DATE </div>
+    </div>
+
+    <div class="row" ng-repeat="message in sent_messages">
+      <div class="col-md-2"><span ng-repeat="recipient in message.recipients"> {{ recipient.firstname + " " + recipient.lastname }} </span></div>
+      <div class="col-md-2"> {{ message.title }} </div>
+      <div class="col-md-2"> {{ message.content }} </div>
+      <div class="col-md-2"> {{ message.created_at }} </div>
+    </div>
+
+  </div>
+
+</div>

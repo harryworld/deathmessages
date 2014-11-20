@@ -11,16 +11,16 @@ u2 = User.create(firstname: "Harry", lastname: "Ng", activated: true, deceased: 
 u3 = User.create(firstname: "Fer", lastname: "Fer", activated: true, deceased: false, email: "fer@email.com", password: "password", password_confirmation: "password")
 u4 = User.create(firstname: "Mark", lastname: "Wilson", activated: true, deceased: false, email: "mark@email.com", password: "password", password_confirmation: "password")
 
-m1 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m2 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m3 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m4 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m5 = Message.create(user_id: 1, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m6 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m7 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m8 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m9 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
-m0 = Message.create(user_id: 2, title: "test", content: "test", photo: "photo.jpg", send_date: Time.now)
+m1 = Message.create(user_id: 1, title: "test", content: "test", date: Time.now)
+m2 = Message.create(user_id: 1, title: "test", content: "test", date: Time.now)
+m3 = Message.create(user_id: 1, title: "test", content: "test", date: Time.now)
+m4 = Message.create(user_id: 1, title: "test", content: "test", date: Time.now)
+m5 = Message.create(user_id: 1, title: "test", content: "test", date: Time.now)
+m6 = Message.create(user_id: 2, title: "test", content: "test", date: Time.now)
+m7 = Message.create(user_id: 2, title: "test", content: "test", date: Time.now)
+m8 = Message.create(user_id: 2, title: "test", content: "test", date: Time.now)
+m9 = Message.create(user_id: 2, title: "test", content: "test", date: Time.now)
+m0 = Message.create(user_id: 2, title: "test", content: "test", date: Time.now)
 
 m1.recipients << u2
 m2.recipients << u3
