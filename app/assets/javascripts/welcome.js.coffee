@@ -21,6 +21,7 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
       title: $scope.title,
       content: $scope.content
     }
+    jsonObj[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content')
     console.log jsonObj
     $http.post('/messages.json', jsonObj)
       .success (data) ->

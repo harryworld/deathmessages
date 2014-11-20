@@ -7,8 +7,8 @@ class MessagesController < ApplicationController
 
   def index
     if user_signed_in?
-      @received_messages = current_user.received_messages
-      @sent_messages = Message.all.where(user_id:current_user.id)
+      @received_messages = current_user.received_messages.order("created_at DESC")
+      @sent_messages = Message.all.where(user_id:current_user.id).order("created_at DESC")
     else
       redirect_to messages_path
     end
@@ -26,11 +26,19 @@ class MessagesController < ApplicationController
 
   def create
     recipient = params[:recipient]
+
     title = params[:title]
     content = params[:content]
-    binding.pry
     @message = Message.new(title:title, content:content, user_id:current_user.id)
-    @message.save
+    respond_to do |format|
+      if @message.save
+        # format.html { redirect_to @message, notice: 'Lunch was successfully created.' }
+        format.json { render :show, status: :created, location: @message }
+      else
+        # format.html { render :new }
+        format.json { render json: @message.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
