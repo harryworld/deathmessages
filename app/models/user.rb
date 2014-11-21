@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  MINIMUM_RESPONSE_TIME = 1.month
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
