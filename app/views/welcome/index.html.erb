@@ -1,20 +1,127 @@
 <p id="notice"><%= notice %></p>
 
-<% if user_signed_in? %>
-  Welcome back! <%= current_user.firstname + ' ' + current_user.lastname %>.
-  <%= link_to 'Edit profile', edit_user_registration_path %>
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path  %> |
-  <%= link_to "Login", new_user_session_path  %>
-<% end %>
+<div class="col-md-8 col-md-offset-2" ng-controller="MessageBoxCtrl">
 
-<div ng-controller="MessageBoxCtrl">
+  <p>
+  <% if user_signed_in? %>
+    Welcome back! <%= current_user.firstname + ' ' + current_user.lastname %>.
+    <%= link_to 'Edit profile', edit_user_registration_path %>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path  %> |
+    <%= link_to "Login", new_user_session_path  %>
+  <% end %>
+  </p>
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">New message</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="message_recipient">To</label><br>
+              <input class="form-control" id="message_recipient" type="text" placeholder="Enter email" ng-model="recipient_email_list"/>
+            </div>
+            <div class="form-group">
+              <label for="message_title">Title</label><br>
+              <input class="form-control" id="message_title" type="text" placeholder="Enter title" ng-model="title"/>
+            </div>
+            <div class="form-group">
+              <label for="message_content">Content</label><br>
+              <textarea class="form-control" id="message_content" placeholder="Enter content" rows="3" ng-model="content"/></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="composeMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h1>New message</h1>
+  <div class="col-md-1">
+      <input type="text" placeholder="Start typing to filter.." class="searchBox" ng-model="searchText" />
+    </div>
+    <div class="col-md-1  col-md-offset-8">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        New Death Note
+      </button>
+    </div>
 
-  <form accept-charset="UTF-8" action="/messages" class="new_message" id="new_message" method="post">
+  <div class="col-md-11">
+    <h1>Inbox</h1>
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+          <tr ng-repeat="message in received_messages | filter: searchText">
+            <td> {{ getName(message) }} </td>
+            <td> {{ message.title }} </td>
+            <td> {{ message.content }} </td>
+            <td> {{ message.created_at }} </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-11">
+    <h1>Sent Message</h1>
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>To</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+          <tr ng-repeat="message in sent_messages | filter: searchText">
+            <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
+            <td> {{ message.title }} </td>
+            <td> {{ message.content }} </td>
+            <td> {{ message.created_at }} </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <!-- <div class="col-md-4">
+    <h1>New message</h1>
+    <form role="form">
+      <div class="form-group">
+        <label for="message_recipient">To</label><br>
+        <input class="form-control" id="message_recipient" type="email" placeholder="Enter email" ng-model="recipient_email_list"/>
+      </div>
+      <div class="form-group">
+        <label for="message_title">Title</label><br>
+        <input class="form-control" id="message_title" type="text" placeholder="Enter title" ng-model="title"/>
+      </div>
+      <div class="form-group">
+        <label for="message_content">Content</label><br>
+        <textarea class="form-control" id="message_content" placeholder="Enter content" rows="3" ng-model="content"/></textarea>
+      </div>
+      <div class="btn btn-default" ng-click="composeMessage()">Submit</div>
+    </form>
+  </div> -->
+
+  <!-- <form accept-charset="UTF-8" action="/messages" class="new_message" id="new_message" method="post">
     <div class="field">
       <label for="message_recipient">To</label><br>
       <input id="message_recipient" name="message[title]" type="text" ng-model="recipient_email_list"/>
@@ -27,19 +134,14 @@
       <label for="message_content">Content</label><br>
       <textarea id="message_content" name="message[content]" ng-model="content"/></textarea>
     </div>
-    <div class="btn btn-success" ng-click="composeMessage()">Submit</div>
-  </form>
+    <div class="btn btn-default" ng-click="composeMessage()">Submit</div>
+  </form> -->
 
-  To: <span ng-bind="recipient_email_list"></span><br>
+  <!-- To: <span ng-bind="recipient_email_list"></span><br>
   Title: <span ng-bind="title"></span><br>
-  Content: <span ng-bind="content"></span><br>
+  Content: <span ng-bind="content"></span><br> -->
 
-  <input type="text" placeholder="Start typing to filter.." class="searchBox" ng-model="searchText" />
-
-  <h1>Inbox</h1>
-
-  <div>
-    <div class="row header">
+    <!-- <div class="row header">
       <div class="col-md-2"> FROM </div>
       <div class="col-md-2"> TITLE </div>
       <div class="col-md-2"> CONTENT </div>
@@ -51,11 +153,9 @@
       <div class="col-md-2"> {{ message.title }} </div>
       <div class="col-md-2"> {{ message.content }} </div>
       <div class="col-md-2"> {{ message.created_at }} </div>
-    </div>
+    </div> -->
 
-  </div>
-
-  <h1>Sent Message</h1>
+  <!-- <h1>Sent Message</h1>
 
   <div>
     <div class="row header">
@@ -72,6 +172,4 @@
       <div class="col-md-2"> {{ message.created_at }} </div>
     </div>
 
-  </div>
-
-</div>
+  </div> -->
