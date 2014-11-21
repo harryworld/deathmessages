@@ -41,6 +41,7 @@ class MessagesController < ApplicationController
     # parse recipient email list into email array
     recipients = recipient_email_list.split(/,\s*/)
 
+    # loop through recipients to check if each email exists
     recipients.each do |recipient|
       user = User.find_by_email(recipient)
 
@@ -49,11 +50,14 @@ class MessagesController < ApplicationController
 
         #generate random password
         generated_password = Devise.friendly_token.first(8)
-        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        # THIS NEEDS TO BE SENT TO USER THRU EMAIL
+        DeathNotesMailer.account_create_notification(recipient,generated_password).deliver
 
         #create user with this email
         user = User.create(email:recipient, password:generated_password, password_confirmation:generated_password)
+
+      else
+        # SEND NEW MESSAGE NOTIFICATION EMAIL TO EXISTING USER
+
       end
 
       # insert user into recipients
