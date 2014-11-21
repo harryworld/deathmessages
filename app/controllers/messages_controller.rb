@@ -3,7 +3,16 @@ class MessagesController < ApplicationController
 
   def index
     if user_signed_in?
-      @received_messages = current_user.received_messages.order("created_at DESC")
+      # inbox - all received messages
+      all_received_messages = current_user.received_messages.order("created_at DESC")
+
+      # inbox size
+      @total_messages = all_received_messages.size
+
+      # check which ones are from dead people
+      @received_messages = []
+      all_received_messages.each {|message| @received_messages << message if message.user.deceased }
+
       @sent_messages = Message.all.where(user_id:current_user.id).order("created_at DESC")
     else
       redirect_to messages_path

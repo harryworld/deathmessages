@@ -6,6 +6,7 @@ App = angular.module("deathNotes", [])
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
 
+  # Json call to load all messages
   $scope.loadMessages = ->
     $http.get('/messages.json')
       .success (data) ->
@@ -15,12 +16,14 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
       .error (data) ->
         # console.log data
 
+  # Returns Name if exist else returns Email
   $scope.getName = (m) ->
     if m.firstname != null
       m.firstname + " " + m.lastname
     else
       m.email
 
+  # Json call to submit a new message
   $scope.composeMessage = ->
     jsonObj = {
       recipient_email_list: $scope.recipient_email_list,
