@@ -25,11 +25,15 @@
     Welcome back! <%= current_user.firstname + " " + current_user.lastname %>.
     <%= link_to 'Edit profile', edit_user_registration_path %>
     <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <br>
+    You currently have <%= current_user.gem %> gem.
   <% else %>
     <%= link_to "Sign up", new_user_registration_path  %> |
     <%= link_to "Login", new_user_session_path  %>
   <% end %>
   </p>
+
+  <!-- <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div> -->
 
   <div class="col-md-3">
       <input type="text" placeholder="Start typing to filter.." class="form-control" ng-model="searchText" />
@@ -122,75 +126,3 @@
     </table>
   </div>
 </div>
-
-  <!-- <div class="col-md-4">
-    <h1>New message</h1>
-    <form role="form">
-      <div class="form-group">
-        <label for="message_recipient">To</label><br>
-        <input class="form-control" id="message_recipient" type="email" placeholder="Enter email" ng-model="recipient_email_list"/>
-      </div>
-      <div class="form-group">
-        <label for="message_title">Title</label><br>
-        <input class="form-control" id="message_title" type="text" placeholder="Enter title" ng-model="title"/>
-      </div>
-      <div class="form-group">
-        <label for="message_content">Content</label><br>
-        <textarea class="form-control" id="message_content" placeholder="Enter content" rows="3" ng-model="content"/></textarea>
-      </div>
-      <div class="btn btn-default" ng-click="composeMessage()">Submit</div>
-    </form>
-  </div> -->
-
-  <!-- <form accept-charset="UTF-8" action="/messages" class="new_message" id="new_message" method="post">
-    <div class="field">
-      <label for="message_recipient">To</label><br>
-      <input id="message_recipient" name="message[title]" type="text" ng-model="recipient_email_list"/>
-    </div>
-    <div class="field">
-      <label for="message_title">Title</label><br>
-      <input id="message_title" name="message[title]" type="text" ng-model="title"/>
-    </div>
-    <div class="field">
-      <label for="message_content">Content</label><br>
-      <textarea id="message_content" name="message[content]" ng-model="content"/></textarea>
-    </div>
-    <div class="btn btn-default" ng-click="composeMessage()">Submit</div>
-  </form> -->
-
-  <!-- To: <span ng-bind="recipient_email_list"></span><br>
-  Title: <span ng-bind="title"></span><br>
-  Content: <span ng-bind="content"></span><br> -->
-
-    <!-- <div class="row header">
-      <div class="col-md-2"> FROM </div>
-      <div class="col-md-2"> TITLE </div>
-      <div class="col-md-2"> CONTENT </div>
-      <div class="col-md-2"> DATE </div>
-    </div>
-
-    <div class="row" ng-repeat="message in received_messages | filter: searchText">
-      <div class="col-md-2"> {{ getName(message) }}</div>
-      <div class="col-md-2"> {{ message.title }} </div>
-      <div class="col-md-2"> {{ message.content }} </div>
-      <div class="col-md-2"> {{ message.created_at }} </div>
-    </div> -->
-
-  <!-- <h1>Sent Message</h1>
-
-  <div>
-    <div class="row header">
-      <div class="col-md-2"> TO </div>
-      <div class="col-md-2"> TITLE </div>
-      <div class="col-md-2"> CONTENT </div>
-      <div class="col-md-2"> DATE </div>
-    </div>
-
-    <div class="row" ng-repeat="message in sent_messages | filter: searchText">
-      <div class="col-md-2"><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span></div>
-      <div class="col-md-2"> {{ message.title }} </div>
-      <div class="col-md-2"> {{ message.content }} </div>
-      <div class="col-md-2"> {{ message.created_at }} </div>
-    </div>
-
-  </div> -->

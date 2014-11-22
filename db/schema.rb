@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121083907) do
+ActiveRecord::Schema.define(version: 20141117090341) do
 
   create_table "messages", force: true do |t|
     t.string   "title"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20141121083907) do
     t.string   "lastname"
     t.boolean  "activated"
     t.boolean  "deceased"
+    t.integer  "gem"
     t.string   "facebook_api_key"
   end
 
