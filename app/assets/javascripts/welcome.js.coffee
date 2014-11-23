@@ -4,6 +4,8 @@
 
 App = angular.module("deathNotes", [])
 
+# App = angular.module("deathNotes", ['ui.select'])
+
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
 
   # Json call to load all messages
