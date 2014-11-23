@@ -5,3 +5,4 @@
 
 asset 'angular-ui-select'
 asset 'angular-route'
+asset 'angular-devise'

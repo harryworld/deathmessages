@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
+//= require angular-ui-select
+//= require angular-route
 //= require_tree .

@@ -1,6 +1,17 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
+  # hide user details and message content if deceased
+  def hideNotDeceased(message)
+    if message.user.deceased == false
+      message.user.firstname=nil
+      message.user.lastname=nil
+      message.user.email="???"
+      message.title="???"
+      message.content="???"
+    end
+  end
+
   def index
     if user_signed_in?
       # inbox - all received messages
@@ -11,7 +22,10 @@ class MessagesController < ApplicationController
 
       # check which ones are from dead people
       @received_messages = []
-      all_received_messages.each {|message| @received_messages << message if message.user.deceased }
+      all_received_messages.map do |message|
+        hideNotDeceased(message)
+        @received_messages << message
+      end
 
       @sent_messages = Message.all.where(user_id:current_user.id).order("created_at DESC")
     else
@@ -20,6 +34,7 @@ class MessagesController < ApplicationController
   end
 
   def show
+    hideNotDeceased(@message)
   end
 
   def new
@@ -40,6 +55,10 @@ class MessagesController < ApplicationController
 
     # parse recipient email list into email array
     recipients = recipient_email_list.split(/,\s*/)
+
+    # add new credits depending how many messages sent
+    new_gem = current_user.gem + recipients.size
+    current_user.update(gem:new_gem)
 
     # loop through recipients to check if each email exists
     recipients.each do |recipient|

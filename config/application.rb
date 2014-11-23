@@ -27,4 +27,8 @@ module Deathmessages
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
   end
+
 end
+
+# Add Bower components to assets pipeline
+# config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')

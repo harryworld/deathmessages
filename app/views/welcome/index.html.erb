@@ -1,49 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<div class="col-md-10 col-md-offset-1" ng-controller="MessageBoxCtrl">
 
-
-          <!-- Modal 2 UNFINISHED CODE-->
-          <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <h4 class="modal-title" id="myModalLabel">View Message</h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-  <p>
-  <% if user_signed_in? %>
-    Welcome back! <%= current_user.firstname + " " + current_user.lastname %>.
-    <%= link_to 'Edit profile', edit_user_registration_path %>
-    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <br>
-    You currently have <%= current_user.gem %> gem.
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path  %> |
-    <%= link_to "Login", new_user_session_path  %>
-  <% end %>
-  </p>
-
-  <!-- <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div> -->
-
-  <div class="col-md-3">
-      <input type="text" placeholder="Start typing to filter.." class="form-control" ng-model="searchText" />
+<!-- Nav Bar -->
+<nav class="navbar navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header col-md-2">
+      <a class="navbar-brand" href="/">Death Notes</a>
     </div>
-    <div class="col-md-1  col-md-offset-6">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle nopadding" data-toggle="dropdown"><%= current_user.firstname %></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+            </ul>
+          </li>
+          <li><a class="" href="#"><%= current_user.gem %> gem</li>
+        <% else %>
+          <li><%= link_to "Sign up", new_user_registration_path  %></li>
+          <li><%= link_to "Login", new_user_session_path  %></li>
+        <% end %>
+      </ul>
+      <form class="navbar-form">
+        <input type="text" placeholder="Start typing to filter.." class="form-control" ng-model="searchText" />
+      </form>
+    </div>
+  </div>
+</nav> <!-- Nav Bar End -->
 
-      <!-- Button trigger New Message modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        New Death Note
-      </button>
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Side Bar -->
+    <div class="col-md-2 sidebar">
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">New Death Note</button>
       <!-- New Message Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -74,62 +67,74 @@
             </div>
           </div>
         </div>
+      </div> <!-- New Message Modal End -->
+
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#">Inbox</a></li>
+        <li><a href="#">Sent</a></li>
+        <li><a href="#">Drafts</a></li>
+      </ul>
+    </div> <!-- Side Bar End -->
+
+    <!-- Main Window -->
+    <div class="col-md-10 main" ng-controller="MessageBoxCtrl">
+      <div class="col-md-12">
+        <h1>Death Notes Inbox</h1>
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>Title</th>
+              <th>Content</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+              <tr data-toggle="modal" ng-repeat="message in received_messages | filter: searchText">
+                <td> {{ getName(message) }} </td>
+                <td> {{ message.title }} </td>
+                <td> {{ message.content }} </td>
+                <td> {{ message.created_at }} </td>
+
+              </tr>
+
+          </tbody>
+        </table>
       </div>
 
-    </div>
+      <div class="col-md-12">
+        <h1>Death Notes Sent</h1>
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>To</th>
+              <th>Title</th>
+              <th>Content</th>
+              <th>Date</th>
+            </tr>
+          </thead>
 
-  <div class="col-md-11">
-    <h1>Death Notes Inbox</h1>
-    <table class="table table-hover table-condensed">
-      <thead>
-        <tr>
-          <th>From</th>
-          <th>Title</th>
-          <th>Content</th>
-          <th>Date</th>
-        </tr>
-      </thead>
+          <tbody>
+              <tr data-toggle="modal" ng-repeat="message in sent_messages | filter: searchText">
+                <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
+                <td> {{ message.title }} </td>
+                <td> {{ message.content }} </td>
+                <td> {{ message.created_at }} </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> <!-- Main Window End -->
 
-      <tbody>
-          <tr data-toggle="modal" data-target="#myModal2" ng-repeat="message in received_messages | filter: searchText">
-            <td> {{ getName(message) }} </td>
-            <td> {{ message.title }} </td>
-            <td> {{ message.content }} </td>
-            <td> {{ message.created_at }} </td>
-
-          </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-  <div class="col-md-11">
-    <h1>Death Notes Sent</h1>
-    <table class="table table-hover table-condensed">
-      <thead>
-        <tr>
-          <th>To</th>
-          <th>Title</th>
-          <th>Content</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-
-      <tbody>
-          <tr data-toggle="modal" data-target="#myModal2" ng-repeat="message in sent_messages | filter: searchText">
-            <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
-            <td> {{ message.title }} </td>
-            <td> {{ message.content }} </td>
-            <td> {{ message.created_at }} </td>
-          </tr>
-      </tbody>
-    </table>
+    <select ui-select ng-model="select" data-placeholder="Pick a number">
+        <option value=""></option>
+        <option value="one">First</option>
+        <option value="two">Second</option>
+        <option value="three">Third</option>
+    </select>
   </div>
 </div>
-
-<select ui-select ng-model="select" data-placeholder="Pick a number">
-    <option value=""></option>
-    <option value="one">First</option>
-    <option value="two">Second</option>
-    <option value="three">Third</option>
-</select>
+<div class="view-container">
+    <div ng-view class="view-frame animate-view"></div>
+</div>

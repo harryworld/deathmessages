@@ -6,5 +6,5 @@ class ApplicationController < ActionController::Base
 
   # turn off csrf just for json
   protect_from_forgery with: :null_session
-
+  respond_to :html, :json
 end

@@ -2,9 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-App = angular.module("deathNotes", [])
+# App = angular.module("deathNotes", [])
+
+App = angular.module("deathNotes", ['ngRoute'])
 
 # App = angular.module("deathNotes", ['ui.select'])
+
+# App = angular.module("deathNotes", ['Devise'])
+
+# deathNotes.config([ '$routeProvider',
+#   ($routeProvider)->
+#     $routeProvider
+#       .when('/',
+#         templateUrl: "index.html"
+#         controller: 'MessageBoxCtrl'
+#       )
+# ])
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
 
@@ -15,6 +28,7 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         # console.log data
         $scope.received_messages = data.received_messages
         $scope.sent_messages = data.sent_messages
+        console.log data.received_messages
       .error (data) ->
         # console.log data
 
