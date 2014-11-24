@@ -3,6 +3,7 @@
 
 # asset 'bootstrap'
 
-asset 'angular-ui-select'
+# asset 'angular-ui-select'
 asset 'angular-route'
 asset 'angular-devise'
+asset 'angular-ui-select2'

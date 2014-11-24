@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require select2/select2
 //= require angular/angular
-//= require angular-ui-select
+//= require angular-ui-select2
 //= require angular-route
 //= require_tree .

@@ -34,9 +34,27 @@
 <div class="container-fluid">
   <div class="row">
 
+    <!-- Top Bar -->
+    <div class="col-md-12 topbar">
+      <div class="col-md-2">TOP BAR #2 LEFT</div>
+      <div class="col-md-8">TOP BAR #2 MIDDLE</div>
+      <div class="col-md-2 divider">TOP BAR #2 RIGHT</div>
+    </div> <!-- Top Bar End -->
+
     <!-- Side Bar -->
     <div class="col-md-2 sidebar">
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">New Death Note</button>
+
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#">Inbox</a></li>
+        <li><a href="/messages/1.json">Sent</a></li>
+        <li><a href="/inbox">Drafts</a></li>
+      </ul>
+    </div> <!-- Side Bar End -->
+
+    <!-- Main Window -->
+    <div class="col-md-10 main" ng-controller="MessageBoxCtrl">
+
       <!-- New Message Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -48,8 +66,8 @@
             <div class="modal-body">
               <form role="form">
                 <div class="form-group">
-                  <label for="message_recipient">To</label><br>
-                  <input class="form-control" id="message_recipient" type="text" placeholder="Enter email" ng-model="recipient_email_list"/>
+                  <label for="test">To</label><br>
+                  <input class="form-control" id="test" type="hidden" placeholder="Enter email" ui-select2="select2Options" ng-model="recipient_email_list">
                 </div>
                 <div class="form-group">
                   <label for="message_title">Title</label><br>
@@ -69,30 +87,9 @@
         </div>
       </div> <!-- New Message Modal End -->
 
-      <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Inbox</a></li>
-        <li><a href="/messages/1.json">Sent</a></li>
-        <li><a href="/inbox">Drafts</a></li>
-      </ul>
-    </div> <!-- Side Bar End -->
-
-    <!-- Main Window -->
-    <div class="col-md-10 main" ng-controller="MessageBoxCtrl">
-
       <div class="view-container">
         <div ng-view class="view-frame animate-view"></div>
       </div>
-
-  <ui-select multiple ng-model="multipleDemo.colors" reset-search-input="true" theme="select2" ng-disabled="disabled" style="width: 300px;">
-    <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
-    <ui-select-choices repeat="color in availableColors | filter:$select.search">
-      {{color}}
-    </ui-select-choices>
-  </ui-select>
-  <p>Selected: {{multipleDemo.colors}}</p>
-  <p>{{$item}}</p>
-
-
 
       <div class="col-md-12">
         <h1>Death Notes Inbox</h1>
