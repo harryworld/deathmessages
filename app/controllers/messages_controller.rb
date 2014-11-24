@@ -1,6 +1,10 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
+  def inbox
+
+  end
+
   # hide user details and message content if deceased
   def hideNotDeceased(message)
     if message.user.deceased == false

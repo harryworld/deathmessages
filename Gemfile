@@ -71,7 +71,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
-gem 'angularjs-rails', '~> 1.3'
+#gem 'angularjs-rails', '~> 1.3'
 
 gem "koala", "~> 1.10.0rc"
 

@@ -71,13 +71,28 @@
 
       <ul class="nav nav-sidebar">
         <li class="active"><a href="#">Inbox</a></li>
-        <li><a href="#">Sent</a></li>
-        <li><a href="#">Drafts</a></li>
+        <li><a href="/messages/1.json">Sent</a></li>
+        <li><a href="/inbox">Drafts</a></li>
       </ul>
     </div> <!-- Side Bar End -->
 
     <!-- Main Window -->
     <div class="col-md-10 main" ng-controller="MessageBoxCtrl">
+
+      <div class="view-container">
+        <div ng-view class="view-frame animate-view"></div>
+      </div>
+
+  <ui-select multiple ng-model="multipleDemo.colors" theme="select2" ng-disabled="disabled" style="width: 300px;">
+    <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+    <ui-select-choices repeat="color in availableColors | filter:$select.search">
+      {{color}}
+    </ui-select-choices>
+  </ui-select>
+  <p>Selected: {{multipleDemo.colors}}</p>
+
+
+
       <div class="col-md-12">
         <h1>Death Notes Inbox</h1>
         <table class="table table-hover table-condensed">
@@ -126,15 +141,8 @@
         </table>
       </div>
     </div> <!-- Main Window End -->
-
-    <select ui-select ng-model="select" data-placeholder="Pick a number">
-        <option value=""></option>
-        <option value="one">First</option>
-        <option value="two">Second</option>
-        <option value="three">Third</option>
-    </select>
   </div>
 </div>
-<div class="view-container">
-    <div ng-view class="view-frame animate-view"></div>
-</div>
+
+
+

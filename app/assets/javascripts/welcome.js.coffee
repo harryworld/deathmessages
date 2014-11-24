@@ -4,22 +4,33 @@
 
 # App = angular.module("deathNotes", [])
 
-App = angular.module("deathNotes", ['ngRoute'])
+# App = angular.module("deathNotes", ['ngRoute'])
 
-# App = angular.module("deathNotes", ['ui.select'])
+App = angular.module("deathNotes", ['ui.select', 'ngRoute'])
 
 # App = angular.module("deathNotes", ['Devise'])
 
-# deathNotes.config([ '$routeProvider',
-#   ($routeProvider)->
-#     $routeProvider
-#       .when('/',
-#         templateUrl: "index.html"
-#         controller: 'MessageBoxCtrl'
-#       )
-# ])
+App.config([ '$routeProvider',
+  ($routeProvider)->
+    $routeProvider
+      .when('/',
+        templateUrl: "/messages"
+        controller: 'TestCtrl'
+      ).when('/inbox',
+        templateUrl: "/messages"
+        controller: 'TestCtrl'
+      ).when('/sent',
+        templateUrl: "/messages/sent.html"
+        controller: 'TestCtrl'
+      )
+    console.log "I AM IN App.config"
+])
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
+  $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
+
+  $scope.multipleDemo = {};
+  $scope.multipleDemo.colors = ['Blue','Red'];
 
   # Json call to load all messages
   $scope.loadMessages = ->
@@ -28,7 +39,7 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         # console.log data
         $scope.received_messages = data.received_messages
         $scope.sent_messages = data.sent_messages
-        console.log data.received_messages
+        # console.log data.received_messages
       .error (data) ->
         # console.log data
 
@@ -56,4 +67,8 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         console.log data
 
   $scope.loadMessages()
+])
+
+App.controller("TestCtrl", [ '$scope', '$location', ($scope,$routeParams,$location)->
+  console.log "I AM IN TestCtrl"
 ])
