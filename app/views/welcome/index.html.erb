@@ -83,13 +83,14 @@
         <div ng-view class="view-frame animate-view"></div>
       </div>
 
-  <ui-select multiple ng-model="multipleDemo.colors" theme="select2" ng-disabled="disabled" style="width: 300px;">
+  <ui-select multiple ng-model="multipleDemo.colors" reset-search-input="true" theme="select2" ng-disabled="disabled" style="width: 300px;">
     <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
     <ui-select-choices repeat="color in availableColors | filter:$select.search">
       {{color}}
     </ui-select-choices>
   </ui-select>
   <p>Selected: {{multipleDemo.colors}}</p>
+  <p>{{$item}}</p>
 
 
 
@@ -110,10 +111,8 @@
                 <td> {{ getName(message) }} </td>
                 <td> {{ message.title }} </td>
                 <td> {{ message.content }} </td>
-                <td> {{ message.created_at }} </td>
-
+                <td> {{ message.created_at | date : 'MMM dd, yyyy'}} </td>
               </tr>
-
           </tbody>
         </table>
       </div>
@@ -135,7 +134,7 @@
                 <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
                 <td> {{ message.title }} </td>
                 <td> {{ message.content }} </td>
-                <td> {{ message.created_at }} </td>
+                <td> {{ message.created_at | date : 'MMM dd, yyyy'}} </td>
               </tr>
           </tbody>
         </table>

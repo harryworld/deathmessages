@@ -2,10 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-# App = angular.module("deathNotes", [])
-
-# App = angular.module("deathNotes", ['ngRoute'])
-
 App = angular.module("deathNotes", ['ui.select', 'ngRoute'])
 
 # App = angular.module("deathNotes", ['Devise'])
