@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117090341) do
+ActiveRecord::Schema.define(version: 20141124081050) do
+
+  create_table "message_deliveries", force: true do |t|
+    t.date     "unlock_date"
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", force: true do |t|
     t.string   "title"
@@ -21,13 +29,6 @@ ActiveRecord::Schema.define(version: 20141117090341) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "messages_users", id: false, force: true do |t|
-    t.integer "message_id"
-    t.integer "user_id"
-  end
-
-  add_index "messages_users", ["message_id", "user_id"], name: "index_messages_users_on_message_id_and_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

@@ -1,4 +1,5 @@
 class Message < ActiveRecord::Base
   belongs_to :user
-  has_and_belongs_to_many :recipients, class_name: 'User'
+  has_many :message_deliveries
+  has_many :recipients, through: :message_deliveries, source: :user
 end

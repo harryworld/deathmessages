@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :messages
-  has_and_belongs_to_many :received_messages, class_name: 'Message'
+  has_many :message_deliveries
+  has_many :received_messages, through: :message_deliveries, source: :message
 end
