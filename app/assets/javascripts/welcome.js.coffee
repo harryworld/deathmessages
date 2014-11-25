@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-App = angular.module("deathNotes", ['ui.select2', 'ngRoute'])
+App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates'])
 
 # App = angular.module("deathNotes", ['Devise'])
 
@@ -10,13 +10,13 @@ App = angular.module("deathNotes", ['ui.select2', 'ngRoute'])
 #   ($routeProvider)->
 #     $routeProvider
 #       .when('/',
-#         templateUrl: "/messages"
+#         templateUrl: "inbox.html"
 #         controller: 'TestCtrl'
 #       ).when('/inbox',
-#         templateUrl: "/messages"
+#         templateUrl: "inbox.html"
 #         controller: 'TestCtrl'
 #       ).when('/sent',
-#         templateUrl: "/messages/sent.html"
+#         templateUrl: "sent.html"
 #         controller: 'TestCtrl'
 #       )
 #     console.log "I AM IN App.config"
@@ -42,15 +42,33 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         # console.log data
 
   # Returns Name if exist else returns Email
-  $scope.getName = (m) ->
-    if m.firstname != null
-      m.firstname + " " + m.lastname
+  $scope.getName = (message) ->
+    if message.firstname != null
+      message.firstname + " " + message.lastname
     else
-      m.email
+      message.email
 
   # Initialize Values
   $scope.initialize = ->
     $scope.recipient_email_list = []
+
+  # Show unlock Button or not
+  $scope.unlockButtonShow = (message) ->
+    message.firstname == null
+
+
+  # Unlock Message
+  $scope.unlockMessage = (id) ->
+    jsonObj = { message_id: id }
+    console.log id
+    console.log jsonObj
+    jsonObj[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content')
+    $http.post('/messages/unlock.json', jsonObj)
+      .success (data) ->
+        console.log data
+        $scope.loadMessages()
+      .error (data) ->
+        console.log data
 
   # Json call to submit a new message
   $scope.composeMessage = ->

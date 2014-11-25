@@ -1,15 +1,37 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
+  def unlock
+    # get params from json
+    message_id = params[:message_id]
+
+    @message = Message.find_by_id(message_id).message_deliveries.find_by_user_id(current_user.id)
+
+    remaining_credit = current_user.credit - Message::COST_TO_UNLOCK_MESSAGE
+
+    # check if already unlocked and enough credits
+    if @message.unlock_date.nil? && (remaining_credit >= 0)
+      @message.update(unlock_date:Time.now)
+      current_user.update(credit:remaining_credit)
+    end
+
+    # PROVIDE FEEDBACK FOR
+    # 1) NOT ENOUGH CREDITS
+    # 2) ALREADY UNLOCKED
+
+  end
+
   def inbox
 
   end
 
-  # hide user details and message content if deceased
+  # Hide user details and message content if deceased
   def hideNotDeceased(message)
     if message.user.deceased == false
-      message.user.firstname=nil
-      message.user.lastname=nil
+      if message.message_deliveries.find_by_user_id(current_user.id).unlock_date.nil?
+        message.user.firstname=nil
+        message.user.lastname=nil
+      end
       message.user.email="???"
       message.title="???"
       message.content="???"
@@ -38,7 +60,10 @@ class MessagesController < ApplicationController
   end
 
   def show
-    hideNotDeceased(@message)
+    # Hide if not sent from current user
+    if @message.user_id != current_user.id
+      hideNotDeceased(@message)
+    end
   end
 
   def new
@@ -61,8 +86,8 @@ class MessagesController < ApplicationController
     recipients = recipient_email_list.split(/,\s*/)
 
     # add new credits depending how many messages sent
-    new_gem = current_user.gem + recipients.size
-    current_user.update(gem:new_gem)
+    new_credit = current_user.credit + recipients.size
+    current_user.update(credit:new_credit)
 
     # loop through recipients to check if each email exists
     recipients.each do |recipient|

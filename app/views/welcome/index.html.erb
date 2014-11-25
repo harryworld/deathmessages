@@ -1,95 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-
-<!-- Nav Bar -->
-<nav class="navbar navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header col-md-2">
-      <a class="navbar-brand" href="/">Death Notes</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle nopadding" data-toggle="dropdown"><%= current_user.firstname %></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-              <li class="divider"></li>
-              <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
-            </ul>
-          </li>
-          <li><a class="" href="#"><%= current_user.gem %> gem</li>
-        <% else %>
-          <li><%= link_to "Sign up", new_user_registration_path  %></li>
-          <li><%= link_to "Login", new_user_session_path  %></li>
-        <% end %>
-      </ul>
-      <form class="navbar-form">
-        <input type="text" placeholder="Start typing to filter.." class="form-control" ng-model="searchText" />
-      </form>
-    </div>
-  </div>
-</nav> <!-- Nav Bar End -->
-
-<div class="container-fluid">
-  <div class="row">
-
-    <!-- Top Bar -->
-    <div class="col-md-12 topbar">
-      <div class="col-md-2">TOP BAR #2 LEFT</div>
-      <div class="col-md-8">TOP BAR #2 MIDDLE</div>
-      <div class="col-md-2 divider">TOP BAR #2 RIGHT</div>
-    </div> <!-- Top Bar End -->
-
-    <!-- Side Bar -->
-    <div class="col-md-2 sidebar">
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">New Death Note</button>
-
-      <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Inbox</a></li>
-        <li><a href="/messages/1.json">Sent</a></li>
-        <li><a href="/inbox">Drafts</a></li>
-      </ul>
-    </div> <!-- Side Bar End -->
-
-    <!-- Main Window -->
-    <div class="col-md-10 main" ng-controller="MessageBoxCtrl">
-
-      <!-- New Message Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel">New message</h4>
-            </div>
-            <div class="modal-body">
-              <form role="form">
-                <div class="form-group">
-                  <label for="test">To</label><br>
-                  <input class="form-control" id="test" type="hidden" placeholder="Enter email" ui-select2="select2Options" ng-model="recipient_email_list">
-                </div>
-                <div class="form-group">
-                  <label for="message_title">Title</label><br>
-                  <input class="form-control" id="message_title" type="text" placeholder="Enter title" ng-model="title"/>
-                </div>
-                <div class="form-group">
-                  <label for="message_content">Content</label><br>
-                  <textarea class="form-control" id="message_content" placeholder="Enter content" rows="3" ng-model="content"/></textarea>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="composeMessage()">Send</button>
-            </div>
-          </div>
-        </div>
-      </div> <!-- New Message Modal End -->
-
+      <!-- Ng View -->
       <div class="view-container">
         <div ng-view class="view-frame animate-view"></div>
       </div>
+      <!-- Ng View End -->
 
       <div class="col-md-12">
         <h1>Death Notes Inbox</h1>
@@ -108,7 +23,10 @@
                 <td> {{ getName(message) }} </td>
                 <td> {{ message.title }} </td>
                 <td> {{ message.content }} </td>
-                <td> {{ message.created_at | date : 'MMM dd, yyyy'}} </td>
+                <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
+                  <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-primary btn-xs">Show</button></a>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="unlockMessage(message.id)" ng-show="unlockButtonShow(message)">Unlock</button>
+                </td>
               </tr>
           </tbody>
         </table>
@@ -131,14 +49,13 @@
                 <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
                 <td> {{ message.title }} </td>
                 <td> {{ message.content }} </td>
-                <td> {{ message.created_at | date : 'MMM dd, yyyy'}} </td>
+                <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
+                  <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-primary btn-xs">Show</button></a>
+                  <a ng-href="/messages/{{message.id}}/edit"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
+                </td>
               </tr>
           </tbody>
         </table>
       </div>
-    </div> <!-- Main Window End -->
-  </div>
-</div>
-
 
 

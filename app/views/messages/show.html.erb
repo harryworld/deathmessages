@@ -3,18 +3,26 @@
 <p>
   <strong>To:</strong>
   <% @message.recipients.each do  |recipient| %>
-    <%= recipient.firstname + ' ' + recipient.lastname %>
+    <% if recipient.firstname != nil %>
+      <%= recipient.firstname + ' ' + recipient.lastname %>
+    <% else %>
+      <%= recipient.email %>
+    <% end %>
   <% end %>
 </p>
 
 <p>
   <strong>From:</strong>
-  <%= @message.user.firstname + ' ' + @message.user.lastname%>
+  <% if @message.user.firstname != nil %>
+    <%= @message.user.firstname + ' ' + @message.user.lastname%>
+  <% else %>
+      <%= @message.user.email %>
+  <% end %>
 </p>
 
 <p>
-  <strong>Send date:</strong>
-  <%= @message.send_date %>
+  <strong>Date:</strong>
+  <%= @message.created_at %>
 </p>
 
 <p>
@@ -26,11 +34,3 @@
   <strong>Content:</strong>
   <%= @message.content %>
 </p>
-
-<p>
-  <strong>Photo:</strong>
-  <%= @message.photo %>
-</p>
-
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', root_path %>

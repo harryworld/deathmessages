@@ -16,4 +16,5 @@
 //= require angular/angular
 //= require angular-ui-select2
 //= require angular-route
+//= require angular-rails-templates
 //= require_tree .

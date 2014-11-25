@@ -1,0 +1,25 @@
+<div class="col-md-12">
+        <h1>Death Notes Inbox</h1>
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>Title</th>
+              <th>Content</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+              <tr data-toggle="modal" ng-repeat="message in received_messages | filter: searchText">
+                <td> {{ getName(message) }} </td>
+                <td> {{ message.title }} </td>
+                <td> {{ message.content }} </td>
+                <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
+                  <a ng-href="/messages/{{message.id}}">Show</a>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="unlockMessage(message.id)">Unlock</button>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>

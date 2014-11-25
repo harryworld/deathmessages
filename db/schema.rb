@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20141124081050) do
     t.string   "lastname"
     t.boolean  "activated",              default: false
     t.boolean  "deceased",               default: false
-    t.integer  "gem",                    default: 0
+    t.integer  "credit",                 default: 0
     t.string   "facebook_api_key"
   end
 
