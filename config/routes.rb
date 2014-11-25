@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :messages do
-    post  'unlock'  , on: :collection
+    post  'unlockMessage'  , on: :collection
+    post  'editMessage'  , on: :collection
   end
 
   get 'currentuser' => 'user#currentuser'

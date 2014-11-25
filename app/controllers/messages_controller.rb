@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
-  def unlock
+  def unlockMessage
     # get params from json
     message_id = params[:message_id]
 
@@ -14,10 +14,6 @@ class MessagesController < ApplicationController
       @message.update(unlock_date:Time.now)
       current_user.update(credit:remaining_credit)
     end
-
-    # PROVIDE FEEDBACK FOR
-    # 1) NOT ENOUGH CREDITS
-
   end
 
   def inbox
@@ -125,6 +121,59 @@ class MessagesController < ApplicationController
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def editMessage
+    # get params from json
+    recipient_email_list = params[:recipient_email_list]
+    title = params[:title]
+    content = params[:content]
+    message_id = params[:message_id]
+
+    # parse recipient email list into email array
+    recipients = recipient_email_list.split(/,\s*/)
+
+    # # add new credits depending how many messages sent
+    # new_credit = current_user.credit + recipients.size
+    # current_user.update(credit:new_credit)
+
+    # # loop through recipients to check if each email exists
+    # recipients.each do |recipient|
+    #   user = User.find_by_email(recipient)
+
+    #   # check to see if existing user
+    #   if user.nil?
+
+    #     #generate random password
+    #     generated_password = Devise.friendly_token.first(8)
+    #     # DeathNotesMailer.account_create_notification(recipient,generated_password).deliver
+    #     #
+    #     #
+    #     # => TEMPORARY DISABLED
+    #     #
+    #     #
+
+    #     #create user with this email
+    #     user = User.create(email:recipient, password:generated_password, password_confirmation:generated_password)
+
+    #   else
+    #     # SEND NEW MESSAGE NOTIFICATION EMAIL TO EXISTING USER
+
+    #   end
+
+    #   # insert user into recipients
+    #   @message.recipients << user
+    # end
+
+    # respond_to do |format|
+    #   if @message.save
+    #     # format.html { redirect_to @message, notice: 'Lunch was successfully created.' }
+    #     format.json { render :show, status: :created, location: @message }
+    #   else
+    #     # format.html { render :new }
+    #     format.json { render json: @message.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def update

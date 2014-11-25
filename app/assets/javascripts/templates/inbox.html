@@ -1,5 +1,4 @@
 <div class="col-md-12">
-  <h1>Death Notes Inbox</h1>
   <table class="table table-hover table-condensed">
     <thead>
       <tr>
@@ -16,7 +15,7 @@
           <td> {{ message.title }} </td>
           <td> {{ message.content }} </td>
           <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
-            <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-primary btn-xs">Show</button></a>
+            <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-success btn-xs">Show</button></a>
             <button type="button" class="btn btn-primary btn-xs" ng-click="unlockMessage(message.id)" ng-show="unlockButtonShow(message,3)">Unlock</button>
           </td>
         </tr>
