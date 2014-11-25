@@ -1,0 +1,25 @@
+<div class="col-md-12">
+  <h1>Death Notes Sent</h1>
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th>To</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr data-toggle="modal" ng-repeat="message in sent_messages | filter: searchText">
+          <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
+          <td> {{ message.title }} </td>
+          <td> {{ message.content }} </td>
+          <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
+            <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-primary btn-xs">Show</button></a>
+            <a ng-href="/messages/{{message.id}}/edit"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

@@ -17,4 +17,5 @@
 //= require angular-ui-select2
 //= require angular-route
 //= require angular-rails-templates
+//= require angular-animate
 //= require_tree .

@@ -1,61 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-      <!-- Ng View -->
-      <div class="view-container">
-        <div ng-view class="view-frame animate-view"></div>
-      </div>
-      <!-- Ng View End -->
-
-      <div class="col-md-12">
-        <h1>Death Notes Inbox</h1>
-        <table class="table table-hover table-condensed">
-          <thead>
-            <tr>
-              <th>From</th>
-              <th>Title</th>
-              <th>Content</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-
-          <tbody>
-              <tr data-toggle="modal" ng-repeat="message in received_messages | filter: searchText">
-                <td> {{ getName(message) }} </td>
-                <td> {{ message.title }} </td>
-                <td> {{ message.content }} </td>
-                <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
-                  <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-primary btn-xs">Show</button></a>
-                  <button type="button" class="btn btn-primary btn-xs" ng-click="unlockMessage(message.id)" ng-show="unlockButtonShow(message)">Unlock</button>
-                </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="col-md-12">
-        <h1>Death Notes Sent</h1>
-        <table class="table table-hover table-condensed">
-          <thead>
-            <tr>
-              <th>To</th>
-              <th>Title</th>
-              <th>Content</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-
-          <tbody>
-              <tr data-toggle="modal" ng-repeat="message in sent_messages | filter: searchText">
-                <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
-                <td> {{ message.title }} </td>
-                <td> {{ message.content }} </td>
-                <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
-                  <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-primary btn-xs">Show</button></a>
-                  <a ng-href="/messages/{{message.id}}/edit"><button type="button" class="btn btn-primary btn-xs">Edit</button></a>
-                </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-
-
+<!-- Ng View -->
+<div class="view-animate-container">
+  <div ng-view class="view-animate"></div>
+</div>
+<!-- Ng View End -->

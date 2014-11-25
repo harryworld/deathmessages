@@ -2,25 +2,25 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates'])
+App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates', 'ngAnimate'])
 
 # App = angular.module("deathNotes", ['Devise'])
 
-# App.config([ '$routeProvider',
-#   ($routeProvider)->
-#     $routeProvider
-#       .when('/',
-#         templateUrl: "inbox.html"
-#         controller: 'TestCtrl'
-#       ).when('/inbox',
-#         templateUrl: "inbox.html"
-#         controller: 'TestCtrl'
-#       ).when('/sent',
-#         templateUrl: "sent.html"
-#         controller: 'TestCtrl'
-#       )
-#     console.log "I AM IN App.config"
-# ])
+App.config([ '$routeProvider',
+  ($routeProvider)->
+    $routeProvider
+      .when('/',
+        templateUrl: "inbox.html",
+        controller: 'TestCtrl'
+      ).when('/sent',
+        templateUrl: "sent.html",
+        controller: 'TestCtrl'
+      ).when('/drafts',
+        template: 'not done yet'
+      )
+
+    console.log "I AM IN App.config"
+])
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
 
@@ -29,6 +29,18 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         'simple_tags': true,
         'tags': []  # Can be empty list.
     }
+
+  # Json call to load current user details
+  $scope.loadCurrentUser = ->
+    $http.get('/currentuser.json')
+      .success (data) ->
+        # console.log data
+        $scope.current_user_firstname = data.current_user.firstname
+        $scope.current_user_lastname = data.current_user.lastname
+        $scope.current_user_email = data.current_user.email
+        $scope.current_user_credit = data.current_user.credit
+      .error (data) ->
+        console.log data
 
   # Json call to load all messages
   $scope.loadMessages = ->
@@ -51,11 +63,12 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
   # Initialize Values
   $scope.initialize = ->
     $scope.recipient_email_list = []
+    $scope.title = ""
+    $scope.content = ""
 
-  # Show unlock Button or not
-  $scope.unlockButtonShow = (message) ->
-    message.firstname == null
-
+  # Returns true if
+  $scope.unlockButtonShow = (message, credit_cost) ->
+    message.firstname == null && $scope.current_user_credit >= credit_cost
 
   # Unlock Message
   $scope.unlockMessage = (id) ->
@@ -66,6 +79,7 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
     $http.post('/messages/unlock.json', jsonObj)
       .success (data) ->
         console.log data
+        $scope.loadCurrentUser()
         $scope.loadMessages()
       .error (data) ->
         console.log data
@@ -81,16 +95,20 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
     console.log jsonObj
     $http.post('/messages.json', jsonObj)
       .success (data) ->
-        # console.log data
+        console.log data
+        $scope.loadCurrentUser()
         $scope.loadMessages()
         $scope.initialize()
+        console.log "New Message Success"
       .error (data) ->
         console.log data
+        console.log "New Message Fail"
 
+  $scope.loadCurrentUser()
   $scope.loadMessages()
   $scope.initialize()
 ])
 
-App.controller("TestCtrl", [ '$scope', '$location', ($scope,$routeParams,$location)->
+App.controller("TestCtrl", [ '$scope', '$location', ($scope,$location)->
   console.log "I AM IN TestCtrl"
 ])

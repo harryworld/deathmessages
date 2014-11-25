@@ -7,3 +7,4 @@
 asset 'angular-route'
 asset 'angular-devise'
 asset 'angular-ui-select2'
+asset 'angular-animate'
