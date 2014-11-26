@@ -4,8 +4,6 @@
 
 App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates', 'ngAnimate'])
 
-# App = angular.module("deathNotes", ['Devise'])
-
 App.config([ '$routeProvider',
   ($routeProvider)->
     $routeProvider
@@ -17,8 +15,10 @@ App.config([ '$routeProvider',
         controller: 'TestCtrl'
       ).when('/drafts',
         template: 'not done yet'
-      ).when('/messages/:id',
-        template: 'not done yet'
+      ).when('/sentmessages/:id',
+        templateUrl: 'sentmessage.html'
+      ).when('/inboxmessages/:id',
+        templateUrl: 'inboxmessage.html'
       )
 
     console.log "I AM IN App.config"
@@ -26,25 +26,25 @@ App.config([ '$routeProvider',
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
 
+  # UI select2 options for New/Edit Message Modal
   $scope.select2Options = {
         'multiple': true,
         'simple_tags': true,
-        'tags': []  # Can be empty list.
+        'tags': [] # Can be empty list.
     }
 
-  #
+  # Initialize Side Tabs
   $scope.initTabs = ->
     $scope.tabClasses = ["","",""]
 
-  #
+  # Get Current Tab Class
   $scope.getTabClass =  (tabNum) ->
     return $scope.tabClasses[tabNum]
 
-  #
+  # Set Active Side Tab
   $scope.setActiveTab = (tabNum) ->
     $scope.initTabs()
     $scope.tabClasses[tabNum] = "active"
-
 
   # Json call to load current user details
   $scope.loadCurrentUser = ->
@@ -82,7 +82,7 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
     $scope.title = ""
     $scope.content = ""
 
-  # Load Message Content
+  # Load Sent Message Content
   $scope.loadMessageContent = (id) ->
     $scope.recipient_email_list = []
     for i in [0...$scope.sent_messages.length]
@@ -92,6 +92,22 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
     $scope.title = message.title
     $scope.content = message.content
     $scope.message_id = id
+    $scope.created_at = message.created_at
+
+  # Load Inbox Message Content
+  $scope.loadInboxMessageContent = (id) ->
+    $http.get("/messages/#{id}.json")
+      .success (data) ->
+        console.log data
+        $scope.message_id = data.id
+        $scope.title = data.title
+        $scope.content = data.content
+        $scope.created_at = data.created_at
+        $scope.sender_firstname = data.sender_firstname
+        $scope.sender_lastname = data.sender_lastname
+        $scope.sender_email = data.sender_email
+      .error (data) ->
+        # console.log data
 
   # Returns true if
   $scope.unlockButtonShow = (message, credit_cost) ->

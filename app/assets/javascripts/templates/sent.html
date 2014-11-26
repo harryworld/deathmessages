@@ -15,7 +15,9 @@
           <td> {{ message.title }} </td>
           <td> {{ message.content }} </td>
           <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
-            <a ng-href="/messages/{{message.id}}"><button type="button" class="btn btn-success btn-xs">Show</button></a>
+            <a ng-href="#/sentmessages/{{message.id}}">
+              <button type="button" class="btn btn-success btn-xs" ng-click="loadMessageContent(message.id)">Show</button>
+            </a>
             <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editMessageModal" ng-click=loadMessageContent(message.id)>Edit</button>
           </td>
         </tr>

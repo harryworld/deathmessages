@@ -77,3 +77,5 @@ gem "koala", "~> 1.10.0rc"
 
 gem "bower-rails", "~> 0.9.1"
 gem 'angular-rails-templates'
+
+gem 'omniauth-facebook'

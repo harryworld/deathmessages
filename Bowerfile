@@ -5,6 +5,6 @@
 
 # asset 'angular-ui-select'
 asset 'angular-route'
-asset 'angular-devise'
+# asset 'angular-devise'
 asset 'angular-ui-select2'
 asset 'angular-animate'

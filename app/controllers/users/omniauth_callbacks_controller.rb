@@ -1,4 +1,11 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def facebook
+    current_user.update_from_omniauth(request.env["omniauth.auth"])
+    set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+    redirect_to :root
+
+
+  end
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
