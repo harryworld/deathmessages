@@ -79,3 +79,5 @@ gem "bower-rails", "~> 0.9.1"
 gem 'angular-rails-templates'
 
 gem 'omniauth-facebook'
+
+gem 'bourbon', '3.2.3'

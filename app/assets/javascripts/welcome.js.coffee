@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates', 'ngAnimate'])
+App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates', 'ngAnimate','ngMaterial'])
 
 App.config([ '$routeProvider',
   ($routeProvider)->
@@ -25,6 +25,22 @@ App.config([ '$routeProvider',
 ])
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
+
+  $scope.toDos = [
+    {'description': 'Wash the car', 'dueBy': Date.now()},
+    {'description': 'Try out Angular.js on CodePen', 'dueBy' : Date.now()}
+  ]
+
+  $scope.addToDo = ->
+    formattedDate = Date.parse($scope.formDueDate)
+    $scope.toDos.push({description:$scope.formToDo, dueBy:formattedDate})
+    $scope.formToDo = ''
+    $scope.formDueDate = ''
+
+  $scope.removeToDo = (toDo) ->
+    index = $scope.toDos.indexOf(toDo)
+    $scope.toDos.splice(index, 1)
+
 
   # UI select2 options for New/Edit Message Modal
   $scope.select2Options = {

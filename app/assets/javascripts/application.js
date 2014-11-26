@@ -18,4 +18,7 @@
 //= require angular-route
 //= require angular-rails-templates
 //= require angular-animate
+//= require angular-aria
+//= require hammerjs
+//= require angular-material
 //= require_tree .
