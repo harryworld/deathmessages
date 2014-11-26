@@ -32,6 +32,20 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         'tags': []  # Can be empty list.
     }
 
+  #
+  $scope.initTabs = ->
+    $scope.tabClasses = ["","",""]
+
+  #
+  $scope.getTabClass =  (tabNum) ->
+    return $scope.tabClasses[tabNum]
+
+  #
+  $scope.setActiveTab = (tabNum) ->
+    $scope.initTabs()
+    $scope.tabClasses[tabNum] = "active"
+
+
   # Json call to load current user details
   $scope.loadCurrentUser = ->
     $http.get('/currentuser.json')
@@ -141,6 +155,8 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
   $scope.loadCurrentUser()
   $scope.loadMessages()
   $scope.initializeMessage()
+  $scope.initTabs()
+  $scope.setActiveTab(1)
 ])
 
 App.controller("TestCtrl", [ '$scope', '$location', ($scope,$location)->

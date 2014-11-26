@@ -10,7 +10,7 @@
     </thead>
 
     <tbody>
-        <tr data-toggle="modal" ng-repeat="message in received_messages | filter: searchText">
+        <tr ng-repeat="message in received_messages | filter: searchText">
           <td> {{ getName(message) }} </td>
           <td> {{ message.title }} </td>
           <td> {{ message.content }} </td>

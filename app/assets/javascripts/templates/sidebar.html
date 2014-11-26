@@ -3,9 +3,9 @@
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#newMessageModal" ng-click="initializeMessage()">New Death Note</button>
 
       <ul class="nav nav-sidebar">
-        <li class="active"><a href="#/">Inbox</a></li>
-        <li><a href="#/sent">Sent</a></li>
-        <li><a href="#/drafts">Drafts</a></li>
+        <li ng-class="getTabClass(1)" ng-click="setActiveTab(1)"><a href="#/">Inbox</a></li>
+        <li ng-class="getTabClass(2)" ng-click="setActiveTab(2)"><a href="#/sent">Sent</a></li>
+        <li ng-class="getTabClass(3)" ng-click="setActiveTab(3)" ><a href="#/drafts">Drafts</a></li>
       </ul>
     </div>
 <!-- Side Bar End -->
