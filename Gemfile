@@ -3,18 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 
-group :development do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
-
-gem "letter_opener", :group => :development
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -31,7 +19,23 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
+gem 'devise'
+
+gem "koala", "~> 1.10.0rc"
+
+gem "bower-rails", "~> 0.9.1"
+
+gem 'angular-rails-templates'
+
+gem 'omniauth-facebook'
+
+gem 'bourbon', '3.2.3'
+
 group :development do
+  gem 'sqlite3'
+
+  gem "letter_opener"
+
   # Spring speeds up development by keeping your application running in the background.
   #> https://github.com/rails/spring
   gem 'spring'
@@ -58,6 +62,11 @@ group :development do
 
 end
 
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -69,15 +78,3 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-gem 'devise'
-#gem 'angularjs-rails', '~> 1.3'
-
-gem "koala", "~> 1.10.0rc"
-
-gem "bower-rails", "~> 0.9.1"
-gem 'angular-rails-templates'
-
-gem 'omniauth-facebook'
-
-gem 'bourbon', '3.2.3'
