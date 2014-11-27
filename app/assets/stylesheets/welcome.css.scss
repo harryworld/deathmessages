@@ -3,11 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $black: #212121;
+$body-background: #E0F7FA;
+$navbar-background: #00BCD4;
+$topbar-paginationcolor: #0097A7;
 $sidebar-activelinks: #D81B60;
 $sidebar-background: #E0F7FA;
-$navbar-background: #00BCD4;
-$body-background: #E0F7FA;
-$topbar-paginationcolor: #0097A7;
 
 body {
   background: $body-background;
@@ -20,6 +20,12 @@ body {
 .navbar {
   margin-bottom: 0;
   background: $navbar-background;
+}
+
+.navbar-shadow {
+  -webkit-box-shadow: 0px 8px 10px 0px rgba(50, 50, 50, 0.6);
+  -moz-box-shadow:    0px 8px 10px 0px rgba(50, 50, 50, 0.6);
+  box-shadow:         0px 8px 10px 0px rgba(50, 50, 50, 0.6);
 }
 
 .navbar-icons {
@@ -37,7 +43,7 @@ body {
 }
 
 .navbar-logo {
- padding-left: 0px !important;
+ padding-left: 5px !important;
  padding-right: 0px !important;
 }
 
