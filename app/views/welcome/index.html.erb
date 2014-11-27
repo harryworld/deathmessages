@@ -1,23 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<form ng-submit="addToDo()">
-  <label for="todo">I need to </label>
-<input id="todo" name="todo" type="text" ng-model="formToDo"/>
-  <label for="dueDate"> by </label>
-<input id="dueDate" name="dueDate" type="text" ng-model="formDueDate" placeholder="mm/dd/yy"/>
-  <button type="submit" ><i class="fa fa-pencil"></i></button>
-</form>
-
-<table >
-  <tr ng-repeat="toDo in toDos" class="todo-item">
-    <td class="todo-col">{{toDo.description}}</td>
-    <td class="date-col">{{toDo.dueBy | date:'MMM dd, yyyy'}}</td>
-    <td class="delete-col"><i class="fa fa-trash-o fa-2x" ng-click="removeToDo(toDo)">
-</table>
-
-<md-button class="md-raised md-primary">Primary</md-button>
-
-
 <% if user_signed_in? %>
   <!-- Ng View -->
   <div class="view-animate-container">

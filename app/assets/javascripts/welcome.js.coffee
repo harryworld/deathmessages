@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates', 'ngAnimate','ngMaterial'])
+App = angular.module("deathNotes", ['ui.select2', 'ngRoute', 'templates', 'ngAnimate'])
 
 App.config([ '$routeProvider',
   ($routeProvider)->

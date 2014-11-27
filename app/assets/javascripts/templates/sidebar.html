@@ -1,11 +1,15 @@
 <!-- Side Bar -->
-    <div class="col-md-2 sidebar">
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#newMessageModal" ng-click="initializeMessage()">New Death Note</button>
+  <div class="col-md-2 sidebar">
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#newMessageModal" ng-click="initializeMessage()">New Death Note</button>
 
-      <ul class="nav nav-sidebar">
-        <li ng-class="getTabClass(1)" ng-click="setActiveTab(1)"><a href="#/">Inbox</a></li>
-        <li ng-class="getTabClass(2)" ng-click="setActiveTab(2)"><a href="#/sent">Sent</a></li>
-        <li ng-class="getTabClass(3)" ng-click="setActiveTab(3)" ><a href="#/drafts">Drafts</a></li>
-      </ul>
-    </div>
+    <ul class="nav nav-sidebar">
+      <li ng-class="getTabClass(1)" ng-click="setActiveTab(1)">
+        <a href="#/"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
+      <li ng-class="getTabClass(2)" ng-click="setActiveTab(2)">
+        <a href="#/sent"><i class="fa fa-paper-plane-o fa-fw"></i>Sent</a></li>
+      <li ng-class="getTabClass(3)" ng-click="setActiveTab(3)" >
+        <a href="#/drafts"><i class="fa fa-pencil-square-o fa-fw"></i> Drafts</a></li>
+      <li class="divider"></li>
+    </ul>
+  </div>
 <!-- Side Bar End -->

@@ -2,127 +2,87 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/*
- * Base structure
- */
+$black: #212121;
+$sidebar-activelinks: #D81B60;
+$sidebar-background: #E0F7FA;
+$navbar-background: #00BCD4;
+$body-background: #E0F7FA;
+$topbar-paginationcolor: #0097A7;
 
-/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+  background: $body-background;
 }
 
-
-/*
- * Global add-ons
- */
-
-.sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
-.navbar-fixed-top {
-  border: 0;
-}
+// ************** //
+// NAVBAR STYLE   //
+// ************** //
 
 .navbar {
-  color: #fff;
-  background-color: #f1f1f1;
+  margin-bottom: 0;
+  background: $navbar-background;
 }
 
-/*
- * Topbar
- */
-
-
-.topbar {
-  border-bottom: 1px solid #f1f1f1;
-  padding: 10px;
+.navbar-icons {
+  padding: 15px !important;
+  color: white !important;
 }
 
-/*
- * Sidebar
- */
+.navbar-sidebartoggle {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.navbar-search {
+  width: 300px !important;
+}
+
+.navbar-logo {
+ padding-left: 0px !important;
+ padding-right: 0px !important;
+}
+
+// links in drop menu in nav bar
+.dropdown-menu>li>a {
+  color: $black !important;
+}
+
+// ************** //
+// TOPBAR STYLE   //
+// ************** //
+
+.pull-right>li>a {
+  color: $topbar-paginationcolor;
+}
+
+.pull-right>li.active>a {
+  background-color: $topbar-paginationcolor;
+  border-color: $topbar-paginationcolor;
+}
+
+// ************** //
+// SIDE BAR STYLE //
+// ************** //
+
+.active>a {
+  color: $sidebar-activelinks;
+  font-weight: bold;
+}
 
 .sidebar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
-  // display: block;
-  padding: 20px;
-  height: 100% !important;
-  // overflow-x: hidden;
-  // overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  background-color: #fff;
-  // border-right: 1px solid #fff;
+  background: $sidebar-background;
+  height: 800px;
+  z-index: 10;
 }
 
-/* Sidebar navigation */
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #dd4b39;
+// ************** //
+// SELECT2 STYLE  //
+// ************** //
+
+.select2-choices {
+  box-shadow: none !important;
+  border: none !important;
 }
 
-
-/*
- * Main content
- */
-
-.main {
-  padding: 20px;
+.select2-input {
+  padding: 0 !important;
 }
-@media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
-}
-.main .page-header {
-  margin-top: 0;
-}
-
-
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.placeholders h4 {
-  margin-bottom: 0;
-}
-.placeholder {
-  margin-bottom: 20px;
-}
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-}
-
-
-
-// **********************
-// FROM CODEPEN
-// **********************
-
-.whiteframedemoBasicUsage md-whiteframe {
-  background: #fff;
-  margin: 20px;
-  padding: 20px; }

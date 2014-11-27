@@ -4,10 +4,9 @@
   <title>Death Notes</title>
   <!-- Select2 theme -->
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
-  <%= stylesheet_link_tag 'application', media: 'screen'%>
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' %>
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
-  <%= stylesheet_link_tag '//material.angularjs.org/docs.css' %>
+  <%= stylesheet_link_tag 'application', media: 'screen'%>
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="deathNotes" ng-controller="MessageBoxCtrl">
@@ -15,32 +14,47 @@
 <% if user_signed_in? %>
 
   <!-- Nav Bar -->
-  <nav class="navbar navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header col-md-2">
-        <a class="navbar-brand" href="/">Death Notes</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="1212" class="dropdown-toggle nopadding" data-toggle="dropdown">{{ current_user_firstname }}</a>
-              <ul class="dropdown-menu" role="menu">
-                <% if current_user.uid.nil? %>
-                  <li><%= link_to "Connect to Facebook", user_omniauth_authorize_path(:facebook) %></li>
-                <% end %>
-                <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-                <li class="divider"></li>
-                <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
-              </ul>
-            </li>
-            <li><a class="" href="121212"> {{ current_user_credit }} credit</a></li>
-        </ul>
-        <form class="navbar-form">
-          <input type="text" placeholder="Start typing to filter.." class="form-control" ng-model="searchText" />
-        </form>
-      </div>
+  <div class="navbar navbar-default">
+    <div class="col-md-2 navbar-logo">
+      <div class="navbar-header navbar-icons navbar-sidebartoggle"><i class="fa fa-bars fa-2x"></i></div>
+      <div class="navbar-header">
     </div>
-  </nav> <!-- Nav Bar End -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="javascript:void(0)">Death Notes</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <form class="navbar-form navbar-left">
+            <input type="text" class="form-control col-lg-8 navbar-search" placeholder="Search" ng-model="searchText">
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li><div class="navbar-icons"><i class="fa fa-th fa-2x"></i></div></li>
+            <li><div class="navbar-icons"><i class="fa fa-bell-o fa-2x"></i></div></li>
+            <li><a href="javascript:void(0)">{{ current_user_credit }} credit</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-user fa-fw"></i>
+                  {{ current_user_firstname + " " + current_user_lastname}} <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <% if current_user.uid.nil? %>
+                    <li><i class="fa fa-facebook-square fa-fw"></i>
+                      <%= link_to "Connect to Facebook", user_omniauth_authorize_path(:facebook) %></li>
+                  <% else %>
+                    <li><a href="javascript:void(0)"><i class="fa fa-facebook-square fa-fw"></i> Connected to Facebook</a></li>
+                  <% end %>
+                  <li class="divider"></li>
+                  <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+                  <li class="divider"></li>
+                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+  </div>
 
   <div class="container-fluid">
     <div class="row">
@@ -50,7 +64,7 @@
       <div ng-include="'sidebar.html'"></div>
 
       <!-- Main Window -->
-      <div class="col-md-10 col-md-off-2 main">
+      <div class="col-md-10 main">
 
         <%= yield %>
 
@@ -64,27 +78,29 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel">New message</h4>
+          <h4 class="modal-title" id="myModalLabel"><i class="fa fa-envelope-o fa-fw"></i> New message</h4>
         </div>
         <div class="modal-body">
           <form role="form">
             <div class="form-group">
-              <label for="test">To</label><br>
-              <input class="form-control" id="test" type="hidden" placeholder="Enter email" ui-select2="select2Options" ng-model="recipient_email_list">
+              <!-- <label for="test">To</label><br> -->
+              <input class="form-control" id="test" type="hidden" placeholder="To" ui-select2="select2Options" ng-model="recipient_email_list">
             </div>
             <div class="form-group">
-              <label for="message_title">Title</label><br>
-              <input class="form-control" id="message_title" type="text" placeholder="Enter title" ng-model="title"/>
+              <!-- <label for="message_title">Title</label><br> -->
+              <input class="form-control" id="message_title" type="text" placeholder="Subject" ng-model="title"/>
             </div>
             <div class="form-group">
-              <label for="message_content">Content</label><br>
-              <textarea class="form-control" id="message_content" placeholder="Enter content" rows="3" ng-model="content"/></textarea>
+              <!-- <label for="message_content">Content</label><br> -->
+              <textarea class="form-control" id="message_content" placeholder="Say Something" rows="3" ng-model="content"/></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="composeMessage()">Send</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-trash-o fa-fw"></i> Discard</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="composeMessage()">
+            <i class="fa fa-paper-plane-o fa-fw"></i> Send</button>
         </div>
       </div>
     </div>
@@ -96,27 +112,29 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel">Edit message</h4>
+          <h4 class="modal-title" id="myModalLabel"><i class="fa fa-pencil fa-fw"></i> Edit message</h4>
         </div>
         <div class="modal-body">
           <form role="form">
             <div class="form-group">
-              <label for="test">To</label><br>
+              <!-- <label for="test">To</label><br> -->
               <input class="form-control" id="test" type="hidden" placeholder="Enter email" ui-select2="select2Options" ng-model="recipient_email_list">
             </div>
             <div class="form-group">
-              <label for="message_title">Title</label><br>
+              <!-- <label for="message_title">Title</label><br> -->
               <input class="form-control" id="message_title" type="text" placeholder="Enter title" ng-model="title"/>
             </div>
             <div class="form-group">
-              <label for="message_content">Content</label><br>
+              <!-- <label for="message_content">Content</label><br> -->
               <textarea class="form-control" id="message_content" placeholder="Enter content" rows="3" ng-model="content"/></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="editMessage()">Edit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-trash-o fa-fw"></i>Discard</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="editMessage()">
+          <i class="fa fa-pencil fa-fw"></i>  Edit</button>
         </div>
       </div>
     </div>
@@ -129,10 +147,13 @@
 <% end %>
 
 
-  <%= javascript_include_tag 'application'%>
   <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' %>
   <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js' %>
-  <%= javascript_include_tag 'https://material.angularjs.org/docs.js' %>
-  <%= javascript_include_tag 'https://material.angularjs.org/docs-demo-scripts.js' %>
+  <%= javascript_include_tag 'application'%>
+  <script>
+            $(document).ready(function() {
+                $.material.init();
+            });
+        </script>
 </body>
 </html>

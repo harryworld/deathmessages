@@ -10,7 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require angular-material
  *= require_self
  */
 
@@ -18,11 +17,12 @@
  * Main Content Animation
  */
 
+ // @import "scaffolds";
  @import "bourbon";
- @import "scaffolds";
  @import "select2-bootstrap";
+ @import "ripples";
+ @import "material-wfont";
  @import "welcome";
- @import "indigo-theme";
 
 .view-animate.ng-enter, .view-animate.ng-leave {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
@@ -49,3 +49,4 @@
 .view-animate.ng-leave.ng-leave-active {
   left:-100%;
 }
+
