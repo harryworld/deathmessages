@@ -19,3 +19,7 @@
 //= require angular-rails-templates
 //= require angular-animate/angular-animate
 //= require_tree .
+
+$(document).ready(function() {
+  $.material.init();
+});

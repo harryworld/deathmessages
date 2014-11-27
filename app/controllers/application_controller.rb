@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   # protect_from_forgery with: :null_session
 
+  before_action :authenticate_user!
+
   # turn off csrf just for json
   protect_from_forgery with: :null_session
   respond_to :html, :json

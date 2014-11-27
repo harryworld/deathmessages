@@ -59,6 +59,16 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => "smtp.mailgun.org",
+    :port => 587,
+    :domain => "sandboxa4a282fcb244489abf8488e4f24e357b.mailgun.org",
+    :user_name => "postmaster@sandboxa4a282fcb244489abf8488e4f24e357b.mailgun.org",
+    :password => "2b43a39de1088dac3d626eccc8662135"
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

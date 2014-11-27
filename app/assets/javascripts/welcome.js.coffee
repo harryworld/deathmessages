@@ -8,11 +8,9 @@ App.config([ '$routeProvider',
   ($routeProvider)->
     $routeProvider
       .when('/',
-        templateUrl: "inbox.html",
-        controller: 'TestCtrl'
+        templateUrl: "inbox.html"
       ).when('/sent',
-        templateUrl: "sent.html",
-        controller: 'TestCtrl'
+        templateUrl: "sent.html"
       ).when('/drafts',
         template: 'not done yet'
       ).when('/sentmessages/:id',
@@ -20,20 +18,18 @@ App.config([ '$routeProvider',
       ).when('/inboxmessages/:id',
         templateUrl: 'inboxmessage.html'
       )
-
-    console.log "I AM IN App.config"
 ])
 
 App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.toDos = [
     {'description': 'Wash the car', 'dueBy': Date.now()},
-    {'description': 'Try out Angular.js on CodePen', 'dueBy' : Date.now()}
+    {'description': 'Try out Angular.js on CodePen', 'dueBy': Date.now()}
   ]
 
   $scope.addToDo = ->
     formattedDate = Date.parse($scope.formDueDate)
-    $scope.toDos.push({description:$scope.formToDo, dueBy:formattedDate})
+    $scope.toDos.push({description:$scope.formToDo, dueBy: formattedDate})
     $scope.formToDo = ''
     $scope.formDueDate = ''
 
@@ -66,24 +62,21 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
   $scope.loadCurrentUser = ->
     $http.get('/currentuser.json')
       .success (data) ->
-        # console.log data
         $scope.current_user_firstname = data.current_user.firstname
         $scope.current_user_lastname = data.current_user.lastname
         $scope.current_user_email = data.current_user.email
         $scope.current_user_credit = data.current_user.credit
       .error (data) ->
-        console.log data
+        console.log "error: ", data
 
   # Json call to load all messages
   $scope.loadMessages = ->
     $http.get('/messages.json')
       .success (data) ->
-        # console.log data
         $scope.received_messages = data.received_messages
         $scope.sent_messages = data.sent_messages
-        # console.log data.received_messages
       .error (data) ->
-        # console.log data
+        console.log "error: ", data
 
   # Returns Name if exist else returns Email
   $scope.getName = (message) ->
@@ -114,7 +107,6 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
   $scope.loadInboxMessageContent = (id) ->
     $http.get("/messages/#{id}.json")
       .success (data) ->
-        console.log data
         $scope.message_id = data.id
         $scope.title = data.title
         $scope.content = data.content
@@ -123,7 +115,7 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
         $scope.sender_lastname = data.sender_lastname
         $scope.sender_email = data.sender_email
       .error (data) ->
-        # console.log data
+        console.log "error: ", data
 
   # Returns true if
   $scope.unlockButtonShow = (message, credit_cost) ->
@@ -132,16 +124,14 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
   # Unlock Message
   $scope.unlockMessage = (id) ->
     jsonObj = { message_id: id }
-    console.log id
-    console.log jsonObj
+
     jsonObj[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content')
     $http.post('/messages/unlockMessage.json', jsonObj)
       .success (data) ->
-        console.log data
         $scope.loadCurrentUser()
         $scope.loadMessages()
       .error (data) ->
-        console.log data
+        console.log "error: ", data
 
   # Json call to edit a new message
   $scope.editMessage = ->
@@ -152,17 +142,14 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
       message_id : $scope.message_id
     }
     jsonObj[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content')
-    console.log jsonObj
+
     $http.post('/messages/editMessage.json', jsonObj)
       .success (data) ->
-        console.log data
         $scope.loadCurrentUser()
         $scope.loadMessages()
         $scope.initializeMessage()
-        console.log "New Message Success"
       .error (data) ->
-        console.log data
-        console.log "New Message Fail"
+        console.log "error: ", data
 
   # Json call to submit a new message
   $scope.composeMessage = ->
@@ -172,25 +159,18 @@ App.controller("MessageBoxCtrl", ["$scope", "$http", ($scope, $http) ->
       content: $scope.content
     }
     jsonObj[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content')
-    console.log jsonObj
+
     $http.post('/messages.json', jsonObj)
       .success (data) ->
-        console.log data
         $scope.loadCurrentUser()
         $scope.loadMessages()
         $scope.initializeMessage()
-        console.log "New Message Success"
       .error (data) ->
-        console.log data
-        console.log "New Message Fail"
+        console.log "error: ", data
 
   $scope.loadCurrentUser()
   $scope.loadMessages()
   $scope.initializeMessage()
   $scope.initTabs()
   $scope.setActiveTab(1)
-])
-
-App.controller("TestCtrl", [ '$scope', '$location', ($scope,$location)->
-  console.log "I AM IN TestCtrl"
 ])

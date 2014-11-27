@@ -3,7 +3,7 @@
 <head>
   <title>Death Notes</title>
   <!-- Select2 theme -->
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+  <%= stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css' %>
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' %>
   <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
   <%= stylesheet_link_tag 'application', media: 'screen'%>
@@ -19,40 +19,40 @@
       <div class="navbar-header navbar-icons navbar-sidebartoggle"><i class="fa fa-bars fa-2x"></i></div>
       <div class="navbar-header">
     </div>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="javascript:void(0)">Death Notes</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="javascript:void(0)">Death Notes</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <form class="navbar-form navbar-left">
-            <input type="text" class="form-control col-lg-8 navbar-search" placeholder="Search" ng-model="searchText">
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li><div class="navbar-icons"><i class="fa fa-th fa-2x"></i></div></li>
-            <li><div class="navbar-icons"><i class="fa fa-bell-o fa-2x"></i></div></li>
-            <li><a href="javascript:void(0)">{{ current_user_credit }} credit</a></li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-user fa-fw"></i>
-                  {{ current_user_firstname + " " + current_user_lastname}} <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <% if current_user.uid.nil? %>
-                    <li><i class="fa fa-facebook-square fa-fw"></i>
-                      <%= link_to "Connect to Facebook", user_omniauth_authorize_path(:facebook) %></li>
-                  <% else %>
-                    <li><a href="javascript:void(0)"><i class="fa fa-facebook-square fa-fw"></i> Connected to Facebook</a></li>
-                  <% end %>
-                  <li class="divider"></li>
-                  <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
-                </ul>
-            </li>
-        </ul>
+      <form class="navbar-form navbar-left">
+        <input type="text" class="form-control col-lg-8 navbar-search" placeholder="Search" ng-model="searchText">
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><div class="navbar-icons"><i class="fa fa-th fa-2x"></i></div></li>
+        <li><div class="navbar-icons"><i class="fa fa-bell-o fa-2x"></i></div></li>
+        <li><a href="javascript:void(0)">{{ current_user_credit }} credit</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user fa-fw"></i>
+            {{ current_user_firstname + " " + current_user_lastname}} <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <% if current_user.uid.nil? %>
+              <li><i class="fa fa-facebook-square fa-fw"></i>
+                <%= link_to "Connect to Facebook", user_omniauth_authorize_path(:facebook) %></li>
+            <% else %>
+              <li><a href="javascript:void(0)"><i class="fa fa-facebook-square fa-fw"></i> Connected to Facebook</a></li>
+            <% end %>
+            <li class="divider"></li>
+            <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -147,13 +147,7 @@
 <% end %>
 
 
-  <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' %>
-  <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js' %>
   <%= javascript_include_tag 'application'%>
-  <script>
-            $(document).ready(function() {
-                $.material.init();
-            });
-        </script>
+  <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js' %>
 </body>
 </html>

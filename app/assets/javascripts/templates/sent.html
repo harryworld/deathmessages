@@ -10,18 +10,17 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="message in sent_messages | filter: searchText">
-          <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
-          <td> {{ message.title }} </td>
-          <td> {{ message.content }} </td>
-          <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
-            <a ng-href="#/sentmessages/{{message.id}}">
-              <button type="button" class="btn btn-success btn-xs" ng-click="loadMessageContent(message.id)">
-                <i class="fa fa-plus-square-o"></i> Show</button>
-            </a>
-            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editMessageModal" ng-click=loadMessageContent(message.id)><i class="fa fa-pencil fa-fw"></i> Edit</button>
-          </td>
-        </tr>
+      <tr ng-repeat="message in sent_messages | filter: searchText">
+        <td><span ng-repeat="recipient in message.recipients | filter: searchText"> {{ getName(recipient) }} </span> </td>
+        <td> {{ message.title }} </td>
+        <td> {{ message.content }} </td>
+        <td> {{ message.created_at | date : 'MMM dd, yyyy'}}
+          <a ng-href="#/sentmessages/{{ message.id }}" class="btn btn-success btn-xs" ng-click="loadMessageContent(message.id)">
+            <i class="fa fa-plus-square-o"></i> Show
+          </a>
+          <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editMessageModal" ng-click="loadMessageContent(message.id)"><i class="fa fa-pencil fa-fw"></i> Edit</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
